@@ -1,5 +1,5 @@
 const { mongoose } = require("mongoose");
-const productModel = require("../model/productModel");
+const productModel = require("../model/productModel"); 
 
 exports.createProduct = async (data) => {
   const result = await productModel.create(data);
@@ -11,7 +11,8 @@ exports.getProducts = async () => {
   return products;
 };
 
-exports.getProductById = async (id) => { 
-  const product = await productModel.findById(id); 
+exports.getProductById = async (id) => {
+  const product = await productModel.findById(id);
   return product;
 };
+

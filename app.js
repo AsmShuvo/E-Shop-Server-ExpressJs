@@ -12,10 +12,12 @@ app.use(morgan("dev"));
 const PORT = process.env.PORT || 5000;
 
 const productsRoute = require("./routes/productsRoutes");
+const userRoute = require("./routes/usersRoutes");
 
 connectDB();
 
 app.use("/products", productsRoute);
+app.use("/users", userRoute);
 
 app.get("/", (req, res) => {
   res.send("E-Shop Server is running...");
