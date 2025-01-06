@@ -14,3 +14,7 @@ exports.getCartProductById = async (id) => {
   const product = await cartModel.findById(id);
   return product;
 };
+
+exports.deleteCartProduct = async (productId) => {
+  await cartModel.deleteOne({ productId });
+};

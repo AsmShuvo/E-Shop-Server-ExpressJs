@@ -1,12 +1,12 @@
 const {
   createCartProduct,
   getCartProducts,
+  deleteCartProduct,
 } = require("../services/cart.service");
 
 const addProductToCart = async (req, res) => {
   try {
-    console.log("Add product called");
-    console.log(req.body);
+    console.log("item ", req.body);
     const product = await createCartProduct(req.body);
     console.log("item to add into cart ", product);
     res.status(200).json({
@@ -14,11 +14,6 @@ const addProductToCart = async (req, res) => {
       message: "Product Added to cart Successfully",
     });
   } catch (error) {
-    res.status(400).json({
-      status: "failed",
-      message: "failed to add product to cart",
-      error: error.message,
-    });
     console.log(error.message);
   }
 };
@@ -36,4 +31,25 @@ const showProductsOfCart = async (req, res) => {
   }
 };
 
-module.exports = { addProductToCart, showProductsOfCart };
+const deleteProductFromCart = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    await deleteCartProduct(productId);
+    res.status(200).json({
+      status: "Success",
+      message: "Product removed from cart successfully",
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "Failed",
+      message: "Error removing product from cart",
+      error: error.message,
+    });
+  }
+};
+
+module.exports = {
+  addProductToCart,
+  showProductsOfCart,
+  deleteProductFromCart,
+};
