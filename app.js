@@ -13,11 +13,13 @@ const PORT = process.env.PORT || 5000;
 
 const productsRoute = require("./routes/productsRoutes");
 const userRoute = require("./routes/usersRoutes");
+const cartRoute = require("./routes/cartRoutes");
 
 connectDB();
 
 app.use("/products", productsRoute);
 app.use("/users", userRoute);
+app.use("/cart", cartRoute);
 
 app.get("/", (req, res) => {
   res.send("E-Shop Server is running...");
