@@ -18,3 +18,8 @@ exports.getCartProductById = async (id) => {
 exports.deleteCartProduct = async (productId) => {
   await cartModel.deleteOne({ productId });
 };
+
+exports.updateCartProductById = async (productId, updateData) => {
+  console.log(updateData);
+  await cartModel.updateOne({ productId }, { $set: updateData });
+};

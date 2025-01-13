@@ -22,6 +22,13 @@ const cartProductSchema = new mongoose.Schema(
       type: String,
       default: "pending",
     },
+    user: {
+      type: String,
+      required: true,
+    },
+    transactionId: {
+      type: String, // Add this field
+    },
   },
   {
     timestamps: true,

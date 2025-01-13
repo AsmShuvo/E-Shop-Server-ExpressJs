@@ -22,6 +22,9 @@ const productSchema = new mongoose.Schema(
     details: {
       type: String,
     },
+    transactionId: {
+      type: String,
+    },
   },
   {
     timestamps: true,
