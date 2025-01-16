@@ -16,7 +16,8 @@ const addUser = async (req, res) => {
 
 const showUser = async (req, res) => {
   try {
-    const users = await getUser(req.body);
+    const { email } = req.query;
+    const users = email ? await findUserByEmail(email) : await getUser();
     res.status(200).json(users);
   } catch (error) {
     res.status(400).json({

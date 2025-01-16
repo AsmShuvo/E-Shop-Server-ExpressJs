@@ -3,6 +3,7 @@ const {
   getCartProducts,
   deleteCartProduct,
   updateCartProductById,
+  getCartProductsByEmail,
 } = require("../services/cart.service");
 
 const addProductToCart = async (req, res) => {
@@ -19,8 +20,10 @@ const addProductToCart = async (req, res) => {
 
 const showProductsOfCart = async (req, res) => {
   try {
-    const products = await getCartProducts();
-    // console.log(products);
+    const { email } = req.query;
+    const products = email
+      ? await getCartProductsByEmail(email)
+      : await getCartProducts();
     res.status(200).json(products);
   } catch (error) {
     res.status(400).json({
@@ -50,11 +53,18 @@ const deleteProductFromCart = async (req, res) => {
 
 const updateCartProduct = async (req, res) => {
   try {
-    console.log("Update called");
     const { productId } = req.params;
-    const { transactionId } = req.body;
-    console.log(productId, transactionId);
-    await updateCartProductById(productId, { transactionId });
+    const { status, transactionId } = req.body; 
+    const updateData = {};
+
+    if (status) {
+      updateData.status = status;
+    }
+    if (transactionId) {
+      updateData.transactionId = transactionId;
+    }
+
+    await updateCartProductById(productId, updateData);
     res.status(200).json({
       status: "Success",
       message: "Cart product updated successfully",
@@ -65,7 +75,7 @@ const updateCartProduct = async (req, res) => {
       message: "Error updating cart product",
       error: error.message,
     });
-    console.log("Error updating trxId: ", error);
+    console.log("Error updating cart product: ", error);
   }
 };
 
