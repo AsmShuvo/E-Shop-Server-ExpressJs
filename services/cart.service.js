@@ -29,5 +29,10 @@ exports.getCartProductsByEmail = async (email) => {
 };
 
 exports.updateCartProductById = async (productId, updateData) => {
-  await cartModel.updateOne({ productId }, { $set: updateData });
+  try {
+    await cartModel.updateMany({ productId }, { $set: updateData });
+  } catch (error) {
+    console.error("Error updating cart products by ID:", error);
+    throw error;
+  }
 };

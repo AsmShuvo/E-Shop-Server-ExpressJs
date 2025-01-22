@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
+    balance: {
+      type: String,
+      default: 100000,
+    },
     role: String,
   },
   {
